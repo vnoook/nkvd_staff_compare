@@ -10,6 +10,11 @@ file_staff_aduser = 'staff_aduser.xlsx'
 wb_1c = openpyxl.Workbook()
 wb_1c_s = wb_1c.active
 print(wb_1c, wb_1c_s)
+wb_1c_s1 = wb_1c_s.min_column
+wb_1c_s2 = wb_1c_s.min_row
+wb_1c_s3 = wb_1c_s.max_column
+wb_1c_s4 = wb_1c_s.max_row
+print(wb_1c_s1, wb_1c_s2, wb_1c_s3, wb_1c_s4)
 
 wb_aduser = openpyxl.Workbook()
 wb_aduser_s = wb_aduser.active
