@@ -28,9 +28,14 @@ for fio_list in wb_1c_s.iter_cols(min_col=wb_1c_s_col_begin, max_col=wb_1c_s_col
                                   values_only=True):
     pass
 
+list_fio_1c = []
 for fio in fio_list:
     if not str_contains_digit(str(fio)):
-        print(fio)
+        # print(fio)
+        # print(''.join(fio.strip().lower().split()))
+        list_fio_1c.append(''.join(fio.strip().lower().split()))
+
+print(list_fio_1c)
 
 wb_aduser = openpyxl.load_workbook(file_staff_aduser)
 wb_aduser_s = wb_aduser.active
