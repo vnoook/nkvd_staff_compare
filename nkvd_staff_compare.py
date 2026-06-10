@@ -3,7 +3,6 @@
 # и найти те строки, которых нет в 1С
 
 import openpyxl
-# import openpyxl.utils
 import openpyxl.styles
 
 def str_contains_digit(sequence):
@@ -30,6 +29,7 @@ for fio_list in wb_1c_s.iter_cols(min_col=wb_1c_s_col_begin, max_col=wb_1c_s_col
     pass
 wb_1c.close()
 
+# создаётся множество для хранения уникальных значений ФИО для сравнения ниже
 set_fio_1c = set()
 for fio in fio_list:
     if not str_contains_digit(str(fio)):
@@ -52,6 +52,7 @@ for fio_list in wb_aduser_s.iter_cols(min_col=wb_aduser_s_col_begin, max_col=wb_
                                   values_only=True):
     pass
 
+# создаётся множество для хранения уникальных значений ФИО для сравнения ниже
 set_fio_aduser = set()
 for fio in fio_list:
     if not str_contains_digit(str(fio)):
@@ -65,13 +66,11 @@ set_fio_for_dismiss = set_fio_aduser - set_fio_1c
 style_red = openpyxl.styles.NamedStyle(name='style_red')
 style_red.fill = openpyxl.styles.PatternFill('solid', fgColor='00FF0000')  # красный
 for fio_list in wb_aduser_s.iter_rows():
-    # print(fio_list[0].coordinate)
     uniq_fio = ''.join(str(fio_list[0].value).strip().lower().split())
     if uniq_fio in set_fio_for_dismiss:
         wb_aduser_s.cell(fio_list[0].row, fio_list[0].column).style = style_red
-        # print(fio_list[0].value + " - уволить")
-        # pass
 
+# сохраняю и закрываю файл
 wb_aduser.save(file_staff_aduser)
 wb_aduser.close()
 
