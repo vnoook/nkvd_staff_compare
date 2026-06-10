@@ -57,9 +57,17 @@ for fio in fio_list:
         set_fio_aduser.add(uniq_fio)
 
 set_fio_for_dismiss = set_fio_aduser - set_fio_1c
-print(set_fio_for_dismiss)
+# print(set_fio_for_dismiss)
 
 # читаю файл и заливаю колонку которая есть в set_fio_for_dismiss цветом
+for fio_list in wb_aduser_s.iter_rows(min_col=wb_aduser_s_col_begin, max_col=wb_aduser_s_col_end,
+                                  min_row=wb_aduser_s_row_begin, max_row=wb_aduser_s_row_end,
+                                  values_only=True):
+    # print(fio_list[0].value)
+    # print(fio_list)
+    uniq_fio = ''.join(str(fio_list[0]).strip().lower().split())
+    if uniq_fio in set_fio_for_dismiss:
+        print(fio_list[0] + " - уволить")
 
-
+# wb_aduser.save()
 wb_aduser.close()
