@@ -3,6 +3,8 @@
 # и найти те строки, которых нет в 1С
 
 import openpyxl
+# import openpyxl.utils
+import openpyxl.styles
 
 def str_contains_digit(sequence):
     return any(character.isdigit() for character in sequence)
@@ -60,14 +62,16 @@ set_fio_for_dismiss = set_fio_aduser - set_fio_1c
 # print(set_fio_for_dismiss)
 
 # читаю файл и заливаю колонку которая есть в set_fio_for_dismiss цветом
-for fio_list in wb_aduser_s.iter_rows(min_col=wb_aduser_s_col_begin, max_col=wb_aduser_s_col_end,
-                                  min_row=wb_aduser_s_row_begin, max_row=wb_aduser_s_row_end,
-                                  values_only=True):
-    # print(fio_list[0].value)
-    # print(fio_list)
-    uniq_fio = ''.join(str(fio_list[0]).strip().lower().split())
+style_red = openpyxl.styles.NamedStyle(name='style_red')
+style_red.fill = openpyxl.styles.PatternFill('solid', fgColor='00FF0000')  # красный
+for fio_list in wb_aduser_s.iter_rows():
+    # print(fio_list[0].coordinate)
+    uniq_fio = ''.join(str(fio_list[0].value).strip().lower().split())
     if uniq_fio in set_fio_for_dismiss:
-        print(fio_list[0] + " - уволить")
+        wb_aduser_s.cell(fio_list[0].row, fio_list[0].column).style = style_red
+        # print(fio_list[0].value + " - уволить")
+        # pass
 
-# wb_aduser.save()
+wb_aduser.save(file_staff_aduser)
 wb_aduser.close()
+
