@@ -24,8 +24,7 @@ wb_1c_s_col_end = wb_1c_s.max_column
 
 # читаю данные из файла
 for fio_list in wb_1c_s.iter_cols(min_col=wb_1c_s_col_begin, max_col=wb_1c_s_col_end,
-                                  min_row=wb_1c_s_row_begin, max_row=wb_1c_s_row_end,
-                                  values_only=True):
+                                  min_row=wb_1c_s_row_begin, max_row=wb_1c_s_row_end, values_only=True):
     pass
 wb_1c.close()
 
@@ -48,8 +47,7 @@ wb_aduser_s_col_end = wb_aduser_s.max_column
 
 # читаю данные из файла
 for fio_list in wb_aduser_s.iter_cols(min_col=wb_aduser_s_col_begin, max_col=wb_aduser_s_col_end,
-                                  min_row=wb_aduser_s_row_begin, max_row=wb_aduser_s_row_end,
-                                  values_only=True):
+                                      min_row=wb_aduser_s_row_begin, max_row=wb_aduser_s_row_end, values_only=True):
     pass
 
 # создаётся множество для хранения уникальных значений ФИО для сравнения ниже
@@ -73,4 +71,3 @@ for fio_list in wb_aduser_s.iter_rows():
 # сохраняю и закрываю файл
 wb_aduser.save(file_staff_aduser)
 wb_aduser.close()
-
