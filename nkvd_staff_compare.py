@@ -49,7 +49,6 @@ for fio_list in wb_aduser_s.iter_cols(min_col=wb_aduser_s_col_begin, max_col=wb_
                                   min_row=wb_aduser_s_row_begin, max_row=wb_aduser_s_row_end,
                                   values_only=True):
     pass
-wb_aduser.close()
 
 set_fio_aduser = set()
 for fio in fio_list:
@@ -57,5 +56,10 @@ for fio in fio_list:
         uniq_fio = ''.join(str(fio).strip().lower().split())
         set_fio_aduser.add(uniq_fio)
 
-c = set_fio_aduser - set_fio_1c
-print(c)
+set_fio_for_dismiss = set_fio_aduser - set_fio_1c
+print(set_fio_for_dismiss)
+
+# читаю файл и заливаю колонку которая есть в set_fio_for_dismiss цветом
+
+
+wb_aduser.close()
