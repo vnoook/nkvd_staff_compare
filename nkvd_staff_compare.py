@@ -1,5 +1,6 @@
-# надо сравнить два файла xls файла по колонкам фио
+# надо сравнить два файла xls файла по колонкам с фио
 # за главную информацию взять информацию из файла 1С
+# и найти те строки, которых нет в 1С
 
 import openpyxl
 
@@ -27,14 +28,11 @@ for fio_list in wb_1c_s.iter_cols(min_col=wb_1c_s_col_begin, max_col=wb_1c_s_col
     pass
 wb_1c.close()
 
-list_fio_1c = []
+set_fio_1c = set()
 for fio in fio_list:
     if not str_contains_digit(str(fio)):
-        list_fio_1c.append(''.join(str(fio).strip().lower().split()))
-
-len_list_fio_1c = len(list_fio_1c)
-set_fio_1c = set(list_fio_1c)
-len_set_fio_1c = len(set_fio_1c)
+        uniq_fio = ''.join(str(fio).strip().lower().split())
+        set_fio_1c.add(uniq_fio)
 
 # подключаюсь к файлу
 wb_aduser = openpyxl.load_workbook(file_staff_aduser)
@@ -53,22 +51,11 @@ for fio_list in wb_aduser_s.iter_cols(min_col=wb_aduser_s_col_begin, max_col=wb_
     pass
 wb_aduser.close()
 
-list_fio_aduser = []
+set_fio_aduser = set()
 for fio in fio_list:
     if not str_contains_digit(str(fio)):
-        list_fio_aduser.append(''.join(str(fio).strip().lower().split()))
+        uniq_fio = ''.join(str(fio).strip().lower().split())
+        set_fio_aduser.add(uniq_fio)
 
-len_list_fio_aduser = len(list_fio_aduser)
-set_fio_aduser = set(list_fio_aduser)
-len_set_fio_aduser = len(set_fio_aduser)
-
-print(set_fio_1c)
-print(set_fio_aduser)
-
-a = {"1","2","3","4","5","6"}
-b = {"22","2","3","9","11","6"}
-c = {9,11,22}
-c1 = a - b
-c2 = b - a
-print(c1)
-print(c2)
+c = set_fio_aduser - set_fio_1c
+print(c)
