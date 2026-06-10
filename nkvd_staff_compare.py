@@ -58,10 +58,10 @@ for fio in fio_list:
         uniq_fio = ''.join(str(fio).strip().lower().split())
         set_fio_aduser.add(uniq_fio)
 
+# получаю множество тех, кто есть в АДЪЮЗЕРЕ и кого нет в 1С
 set_fio_for_dismiss = set_fio_aduser - set_fio_1c
-# print(set_fio_for_dismiss)
 
-# читаю файл и заливаю колонку которая есть в set_fio_for_dismiss цветом
+# читаю файл и заливаю колонку, которая есть в set_fio_for_dismiss цветом
 style_red = openpyxl.styles.NamedStyle(name='style_red')
 style_red.fill = openpyxl.styles.PatternFill('solid', fgColor='00FF0000')  # красный
 for fio_list in wb_aduser_s.iter_rows():
