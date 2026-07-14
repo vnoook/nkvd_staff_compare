@@ -61,17 +61,18 @@ for fio in fio_list:
 # получаю множество тех, кто есть в АДЪЮЗЕРЕ и кого нет в 1С
 set_fio_for_dismiss = set_fio_aduser - set_fio_1c
 
-# читаю файл и заливаю колонку, которая есть в set_fio_for_dismiss цветом
-if 'style_red' not in wb_aduser.named_styles:
-    style_red = openpyxl.styles.NamedStyle(name='style_red')
-    style_red.fill = openpyxl.styles.PatternFill('solid', fgColor='00FF0000')  # красный
-    wb_aduser.add_named_style(style_red)
-else:
+# проверка наличия стиля и если есть, то изменить его, а если нет, то добавить
+if 'style_red' in wb_aduser.named_styles:
     for style in wb_aduser._named_styles:
         if style.name == 'style_red':
             style_red = openpyxl.styles.NamedStyle(name='style_red')
             style_red.fill = openpyxl.styles.PatternFill('solid', fgColor='00FF0000')  # красный
+else:
+    style_red = openpyxl.styles.NamedStyle(name='style_red')
+    style_red.fill = openpyxl.styles.PatternFill('solid', fgColor='00FF0000')  # красный
+    wb_aduser.add_named_style(style_red)
 
+# читаю файл и заливаю колонку, которая есть в set_fio_for_dismiss цветом
 for fio_list in wb_aduser_s.iter_rows():
     uniq_fio = ''.join(str(fio_list[0].value).strip().lower().split())
     if uniq_fio in set_fio_for_dismiss:
